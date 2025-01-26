@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: dbdesafioWebPublico
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: dbdesafio
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345678
