@@ -3,7 +3,7 @@ package com.webpublico.desafio.controllers;
 
 import com.webpublico.desafio.dtos.PersonRecordDto;
 import com.webpublico.desafio.models.PersonModel;
-import com.webpublico.desafio.repositories.PersonRepository;
+
 import com.webpublico.desafio.service.PersonService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -25,7 +25,7 @@ public class PersonController {
     public ResponseEntity<PersonModel> salvarPessoa(@RequestBody @Valid PersonRecordDto personRecordDto) {
         var personModel = new PersonModel();
         BeanUtils.copyProperties(personRecordDto, personModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(personService.savePerson(personModel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(personService.salvarValidacaoSimples(personModel));
     }
 
     @GetMapping("persons")
@@ -51,7 +51,7 @@ public class PersonController {
         }
         var personModel = pessoa.get();
         BeanUtils.copyProperties(personRecordDto, personModel);
-        return ResponseEntity.status(HttpStatus.OK).body(personService.savePerson(personModel));
+        return ResponseEntity.status(HttpStatus.OK).body(personService.atualizaPessoa(personModel));
     }
 
     @DeleteMapping("/persons/{id}")

@@ -3,9 +3,8 @@ package com.webpublico.desafio.models;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "tbperson")
@@ -15,24 +14,38 @@ public class PersonModel implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
-    private Long cpf;
-    //private List endereco;
 
-   // public List getEndereco() {
-   //     return endereco;
-   // }
+    private String identificador;
 
-//    public void setEndereco(List endereco) {
-//        this.endereco = endereco;
-//    }
+    private Long numeroDeCadastro;
 
-    public Long getId() {
-        return id;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EnderecoModel> enderecos;
+
+    public List<EnderecoModel> getEnderecos() {
+        return enderecos;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEnderecos(List<EnderecoModel> enderecos) {
+        this.enderecos = enderecos;
+    }
+
+    public Long getNumeroDeCadastro() {
+        return numeroDeCadastro;
+    }
+
+    public void setNumeroDeCadastro(Long numeroDeCadastro) {
+        this.numeroDeCadastro = numeroDeCadastro;
+    }
+
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
     }
 
     public String getNome() {
@@ -43,11 +56,11 @@ public class PersonModel implements Serializable {
         this.nome = nome;
     }
 
-    public Long getCpf() {
-        return cpf;
+    public Long getId() {
+        return id;
     }
 
-    public void setCpf(Long cpf) {
-        this.cpf = cpf;
+    public void setId(Long id) {
+        this.id = id;
     }
 }
