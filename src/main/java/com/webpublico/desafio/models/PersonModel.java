@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -14,8 +15,17 @@ public class PersonModel implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private UUID id;
-    private String name;
+    private String nome;
     private BigDecimal cpf;
+    private List endereco;
+
+    public List getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(List endereco) {
+        this.endereco = endereco;
+    }
 
     public UUID getId() {
         return id;
@@ -25,12 +35,12 @@ public class PersonModel implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public BigDecimal getCpf() {
