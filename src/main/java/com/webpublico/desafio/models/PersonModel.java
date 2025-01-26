@@ -13,25 +13,25 @@ public class PersonModel implements Serializable {
     private static final long serialVersionUIDLONG = 1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
     private String nome;
-    private BigDecimal cpf;
-    private List endereco;
+    private Long cpf;
+    //private List endereco;
 
-    public List getEndereco() {
-        return endereco;
-    }
+   // public List getEndereco() {
+   //     return endereco;
+   // }
 
-    public void setEndereco(List endereco) {
-        this.endereco = endereco;
-    }
+//    public void setEndereco(List endereco) {
+//        this.endereco = endereco;
+//    }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,11 +43,11 @@ public class PersonModel implements Serializable {
         this.nome = nome;
     }
 
-    public BigDecimal getCpf() {
+    public Long getCpf() {
         return cpf;
     }
 
-    public void setCpf(BigDecimal cpf) {
+    public void setCpf(Long cpf) {
         this.cpf = cpf;
     }
 }
