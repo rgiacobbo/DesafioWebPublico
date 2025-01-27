@@ -4,7 +4,7 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY target/*.jar /app/app.jar
+COPY target/WebPublico-0.0.1-SNAPSHOT.jar.jar /app/app.jar
 
 RUN docker compose up -d
 
