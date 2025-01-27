@@ -1,13 +1,6 @@
-
-FROM maven:3.8.6-openjdk-21-slim AS build
+FROM openjdk:21-jdk-slim
 
 RUN mkdir /app
-
-WORKDIR /app
-
-RUN mvn clean package
-
-FROM openjdk:21-jdk-slim
 
 WORKDIR /app
 
