@@ -22,6 +22,17 @@ public class PessoaModel implements Serializable {
     @Schema(description = "Aceita tanto CPF ou CNPJ.")
     private Long numeroDeCadastro;
 
+    @Schema(description = "Aceita tanto CPF ou CNPJ.")
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EnderecoModel> enderecos;
 
