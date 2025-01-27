@@ -37,6 +37,7 @@ public class EnderecoController {
     @PostMapping("endereco/{id}")
     public ResponseEntity<Object> salvaEndereco(@PathVariable(value = "id") Long id,
                                                 @RequestBody @Valid EnderecoRedordDto enderecoRedordDto) {
+        try{
         Optional<PessoaModel> pessoaOptional = pessoaService.BuscaPorId(id);
 
         if (pessoaOptional.isEmpty()) {
@@ -51,6 +52,9 @@ public class EnderecoController {
         pessoaService.salvar(pessoaModel);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaModel.getEnderecos());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " + e.getMessage());
+        }
     }
 
     @Operation(description = "Lista todos os endereços cadastrados")
@@ -83,6 +87,7 @@ public class EnderecoController {
     @PutMapping("/endereco/{id}")
     public ResponseEntity<Object> atualizaEnderecoPorId(@PathVariable(value="id") Long id,
                                                     @RequestBody @Valid PessoaRecordDto pessoaRecordDto){
+        try{
         Optional<EnderecoModel> endereco = enderecoService.BuscaPorId(id);
         if(endereco.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endenreço não encontrado.");
@@ -90,6 +95,9 @@ public class EnderecoController {
         var enderecoModel = endereco.get();
         BeanUtils.copyProperties(pessoaRecordDto, enderecoModel);
         return ResponseEntity.status(HttpStatus.OK).body(enderecoService.ataulizaEndereco(enderecoModel));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " + e.getMessage());
+        }
     }
 
     @Operation(description = "Exclui um endereço específico, deve enviar o id desejado.")
@@ -99,11 +107,15 @@ public class EnderecoController {
     })
     @DeleteMapping("/endereco/{id}")
     public ResponseEntity<Object> removeEndereco(@PathVariable(value="id") Long id) {
+        try{
         Optional<EnderecoModel> endereco = enderecoService.BuscaPorId(id);
         if(endereco.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Endenreço não encontrado.");
         }
         enderecoService.excluir(endereco.get());
         return ResponseEntity.status(HttpStatus.OK).body("Endereço excluido com sucesso!");
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " + e.getMessage());
+    }
     }
 }
