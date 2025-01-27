@@ -1,14 +1,15 @@
 package com.webpublico.desafio.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.List;
 
-
+@Schema(description = "Schema de Pessoa.",title = "Pessoa")
 @Entity
 @Table(name = "tbperson")
-public class PersonModel implements Serializable {
+public class PessoaModel implements Serializable {
     private static final long serialVersionUIDLONG = 1L;
 
     @Id
@@ -16,12 +17,12 @@ public class PersonModel implements Serializable {
     private Long id;
 
     private String nome;
-
+    @Schema(description = "Dependendo do numero passando em numeroDeCadastro é definido em Pessoa Fisica ou Juridica.")
     private String identificador;
-
+    @Schema(description = "Aceita tanto CPF ou CNPJ.")
     private Long numeroDeCadastro;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EnderecoModel> enderecos;
 
     public List<EnderecoModel> getEnderecos() {
