@@ -1,3 +1,4 @@
+
 FROM maven:3.8.6-openjdk-21-slim AS build
 
 RUN mkdir /app
@@ -6,7 +7,7 @@ WORKDIR /app
 
 RUN mvn clean package -DskipTests
 
-FROM openjdk:21-jdk-alpine
+FROM openjdk:21-jdk-slim
 
 WORKDIR /app
 
