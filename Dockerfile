@@ -11,7 +11,7 @@ FROM openjdk:21-jdk-slim
 
 WORKDIR /app
 
-COPY target/*.jar /app.jar
+COPY target/*.jar /app/app.jar
 
 RUN docker compose up -d
 
