@@ -77,19 +77,22 @@ public class PessoaService {
     }
 
     @Transactional
-    public List<PessoaModel> cadastrarPessoas(MultipartFile file) throws Exception {
+    public ArrayList<String> cadastrarPessoas(MultipartFile file) throws Exception {
         List<PessoaModel> pessoas = new ArrayList<>();
+        ArrayList<String> mensagem = new ArrayList<>();
+
         try (CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
             String[] linha;
             reader.readNext();
+
             while ((linha = reader.readNext()) != null) {
                 PessoaModel pessoa = new PessoaModel();
-                pessoa.setId(Long.parseLong(linha[0]));
+
                 pessoa.setNome(linha[1]);
                 pessoa.setNumeroDeCadastro(Long.parseLong(linha[2]));
                 String tipo = validadorSimples(pessoa.getNumeroDeCadastro());
                 if ("invalido".equals(tipo)) {
-                    throw new IllegalArgumentException("CPF/CNPJ inválido." + pessoa.getNumeroDeCadastro());
+                    mensagem.add("CPF/CNPJ inválido." + pessoa.getNumeroDeCadastro());
                 }
                 pessoa.setIdentificador(tipo);
                 if (pessoaRepository.existsByNumeroDeCadastro(pessoa.getNumeroDeCadastro())) {
@@ -100,7 +103,7 @@ public class PessoaService {
         } catch (Exception e) {
             throw new IllegalArgumentException("Erro no uploading: " + e.getMessage(), e);
         }
-        return pessoas;
+        return mensagem;
     }
 
 

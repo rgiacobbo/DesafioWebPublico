@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,8 +36,8 @@ public class PessoaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("O arquivo está vazio.");
         }
         try {
-            List<PessoaModel> pessoas = pessoaService.cadastrarPessoas(file);
-            return ResponseEntity.status(HttpStatus.OK).body("Sucesso no Uploading.");
+            ArrayList<String> pessoas = pessoaService.cadastrarPessoas(file);
+            return ResponseEntity.status(HttpStatus.OK).body(pessoas);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " + e.getMessage());
         }
